@@ -1,9 +1,9 @@
-[Ll]ibrary/
-[Tt]emp/
-[Oo]bj/
-[Bb]uild/
-[Bb]uilds/
-Assets/AssetStoreTools*
+GMTKJam2018/[Ll]ibrary/
+GMTKJam2018/[Tt]emp/
+GMTKJam2018/[Oo]bj/
+GMTKJam2018/[Bb]uild/
+GMTKJam2018/[Bb]uilds/
+GMTKJam2018/Assets/AssetStoreTools*
 
 # Visual Studio cache directory
 .vs/
