@@ -14,6 +14,9 @@ public class CameraController : MonoBehaviour {
 
     private Vector3 startPosition;
 
+    private float delayLastTileChange = 2f;
+    private float timeSinceLastTileChange = 999f;
+
     void Awake() {
         main = Camera.main;
         nextTileActivator = GetComponentInChildren<BoxCollider2D>();
@@ -21,11 +24,31 @@ public class CameraController : MonoBehaviour {
         startPosition = main.transform.position;
     }
 
-    internal void NextTile() {
+    void Update() {
+        timeSinceLastTileChange += Time.deltaTime;
+    }
+
+    internal void PreviousTile() {
+        if (timeSinceLastTileChange > delayLastTileChange) {
+            float width = TileChange();
+            main.transform.position = main.transform.position - new Vector3((width / 1.1f), 0f, 0f);
+            cs.OriginalPos = main.transform.position;
+        }
+    }
+
+    private float TileChange() {
         float height = 2f * main.orthographicSize;
         float width = height * main.aspect;
-        main.transform.position = main.transform.position + new Vector3((width / 1.1f), 0f, 0f);
-        cs.OriginalPos = main.transform.position;
+        timeSinceLastTileChange = 0f;
+        return width;
+    }
+
+    internal void NextTile() {
+        if (timeSinceLastTileChange > delayLastTileChange) {
+            float width = TileChange();
+            main.transform.position = main.transform.position + new Vector3((width / 1.1f), 0f, 0f);
+            cs.OriginalPos = main.transform.position;
+        }
     }
 
     public void PlayerDeath() {

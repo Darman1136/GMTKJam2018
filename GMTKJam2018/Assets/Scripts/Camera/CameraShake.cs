@@ -2,6 +2,9 @@
 using System.Collections;
 
 public class CameraShake : MonoBehaviour {
+    [SerializeField]
+    private GameObject player;
+
     private Transform camTransform;
 
     public float shakeDuration = 0f;
@@ -29,12 +32,11 @@ public class CameraShake : MonoBehaviour {
 
     void Update() {
         if (shakeDuration > 0) {
-            camTransform.localPosition = OriginalPos + Random.insideUnitSphere * shakeAmount;
-
+            camTransform.localPosition = new Vector3(0f, 0f, camTransform.localPosition.z) + Random.insideUnitSphere * shakeAmount;
             shakeDuration -= Time.deltaTime * decreaseFactor;
         } else {
             shakeDuration = 0f;
-            camTransform.localPosition = OriginalPos;
+            camTransform.localPosition = new Vector3(0f, 0f, camTransform.localPosition.z);
         }
     }
     public void Shake(float duration) {
