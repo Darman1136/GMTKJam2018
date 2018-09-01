@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour {
     private Rigidbody2D rb;
     private PlayerSoundController psc;
     private Gun gun;
+    private Animator animator;
 
     [SerializeField]
     private GameObject handLeft;
@@ -20,10 +21,18 @@ public class PlayerController : MonoBehaviour {
     [SerializeField]
     private GameObject psBlood;
 
+    private RocketLauncher rl;
+    private M4 m4;
+
+    private int currentHand = 0;
+
     void Awake() {
+        rl = FindObjectOfType<RocketLauncher>();
+        m4 = FindObjectOfType<M4>();
         rb = GetComponent<Rigidbody2D>();
         psc = GetComponent<PlayerSoundController>();
-        PickUpGun(FindObjectOfType<M4>());
+        animator = GetComponent<Animator>();
+        PickUpGun(m4);
 
         SetToSpawnPoint();
     }
@@ -46,9 +55,13 @@ public class PlayerController : MonoBehaviour {
         UpdateGunPositionAndRotation();
 
         if (Input.GetButtonDown("Fire2")) {
-            UnbindGunFromPlayer();
+            PickUpGun(rl);
+            UpdateGunPositionAndRotation();
+            rl.Fire();
+            PickUpGun(m4);
         }
 
+        animator.SetFloat("speed", rb.velocity.x);
         lastHandSwitch += Time.deltaTime;
     }
 
@@ -63,7 +76,7 @@ public class PlayerController : MonoBehaviour {
     private void UpdateGunPositionAndRotation() {
         if (gun) {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            gun.transform.rotation = Quaternion.LookRotation(Vector3.forward, mousePos - gun.transform.position) * Quaternion.Euler(0f, 0f, 90f); ;
+            gun.transform.rotation = Quaternion.LookRotation(Vector3.forward, mousePos - gun.transform.position) * Quaternion.Euler(0f, 0f, 90f);
 
             // Debug.Log(gun.transform.rotation.eulerAngles);
 
@@ -71,11 +84,12 @@ public class PlayerController : MonoBehaviour {
             bool prevFlipY = sr.flipY;
             sr.flipY = gun.transform.eulerAngles.z > 90 && gun.transform.eulerAngles.z < 270;
             if (prevFlipY != sr.flipY) {
-                Vector3 offset = new Vector3(2f, 0f, 0f);
                 if (sr.flipY) {
                     BindToLeft();
+                    gun.MuzzlePoint.transform.localPosition = new Vector3(.848f, -.192f);
                 } else {
                     BindToRight();
+                    gun.MuzzlePoint.transform.localPosition = new Vector3(.848f, .192f);
                 }
                 lastHandSwitch = 0;
             }
@@ -93,24 +107,32 @@ public class PlayerController : MonoBehaviour {
 
     private void UnbindGunFromPlayer() {
         if (gun) {
-            Vector3 tmpPosition = gun.transform.position;
-            gun.transform.parent = null;
-            gun.GetComponent<Rigidbody2D>().simulated = true;
-            gun.transform.position = tmpPosition;
-            gun = null;
+            gun.GetComponent<SpriteRenderer>().enabled = false;
+            //Vector3 tmpPosition = gun.transform.position;
+            //gun.transform.parent = null;
+            //gun.GetComponent<Rigidbody2D>().simulated = true;
+            //gun.transform.position = tmpPosition;
+            //gun = null;
         }
     }
 
     private void BindGunToPlayer() {
-        BindToRight();
+        if (currentHand == 0) {
+            BindToRight();
+        } else {
+            BindToLeft();
+        }
+        gun.GetComponent<SpriteRenderer>().enabled = true;
     }
 
     private void BindToRight() {
+        currentHand = 0;
         gun.transform.position = handRight.transform.position;
         gun.transform.parent = handRight.transform;
     }
 
     private void BindToLeft() {
+        currentHand = 1;
         gun.transform.position = handLeft.transform.position;
         gun.transform.parent = handLeft.transform;
     }

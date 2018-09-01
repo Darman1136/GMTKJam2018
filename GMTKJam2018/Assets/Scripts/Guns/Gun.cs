@@ -6,8 +6,8 @@ using UnityEngine;
 public class Gun : MonoBehaviour {
     public AudioClip acShot;
 
-    private AudioSource asShot;
-    private float timeSinceLastShot = 999f;
+    protected AudioSource asShot;
+    protected float timeSinceLastShot = 999f;
 
     private float forceMultipler = 3;
     public float ForceMultipler {
@@ -64,8 +64,29 @@ public class Gun : MonoBehaviour {
         }
     }
 
+    [SerializeField]
+    private GameObject bullet;
+    public GameObject Bullet {
+        get {
+            return bullet;
+        }
 
+        set {
+            bullet = value;
+        }
+    }
 
+    [SerializeField]
+    private GameObject muzzlePoint;
+    public GameObject MuzzlePoint {
+        get {
+            return muzzlePoint;
+        }
+
+        set {
+            muzzlePoint = value;
+        }
+    }
 
     protected virtual void Awake() {
         asShot = AddAudioSource(acShot, false, false, 0.3f);
@@ -81,7 +102,25 @@ public class Gun : MonoBehaviour {
             asShot.pitch = defaultPitch + UnityEngine.Random.Range(-pitchRange, pitchRange);
             asShot.Play();
             AddForceToUser();
+            SpawnProjectile();
             timeSinceLastShot = 0f;
+        }
+    }
+
+    protected void SpawnProjectile() {
+        if (bullet) {
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Quaternion newRotation = Quaternion.LookRotation(Vector3.forward, mousePos - transform.position);
+            GameObject b = Instantiate(bullet, MuzzlePoint.transform.position, newRotation);
+            if (b) {
+                Vector2 mousePos2d = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                Vector2 playerPos = User.transform.position;
+                var heading = mousePos2d - playerPos;
+                var distance = heading.magnitude;
+                var normDirection = heading / distance;
+
+                b.GetComponent<Rigidbody2D>().AddForce(normDirection * 30, ForceMode2D.Impulse);
+            }
         }
     }
 
