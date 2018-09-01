@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
     private Rigidbody2D rb;
@@ -32,7 +33,11 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Update() {
-        bool m1Down = Input.GetMouseButton(0);
+        if(Input.GetButtonUp("Cancel")) {
+            SceneManager.LoadScene("MainMenu");
+        }
+
+        bool m1Down = Input.GetButton("Fire1");
         if (m1Down && gun) {
             gun.Fire();
         }
@@ -40,7 +45,7 @@ public class PlayerController : MonoBehaviour {
         UpdateRBGravity(m1Down);
         UpdateGunPositionAndRotation();
 
-        if (Input.GetMouseButtonDown(1)) {
+        if (Input.GetButtonDown("Fire2")) {
             UnbindGunFromPlayer();
         }
 
