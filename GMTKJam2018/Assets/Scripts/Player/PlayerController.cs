@@ -78,20 +78,20 @@ public class PlayerController : MonoBehaviour {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             gun.transform.rotation = Quaternion.LookRotation(Vector3.forward, mousePos - gun.transform.position) * Quaternion.Euler(0f, 0f, 90f);
 
-            // Debug.Log(gun.transform.rotation.eulerAngles);
-
             SpriteRenderer sr = gun.GetComponent<SpriteRenderer>();
             bool prevFlipY = sr.flipY;
-            sr.flipY = gun.transform.eulerAngles.z > 90 && gun.transform.eulerAngles.z < 270;
-            if (prevFlipY != sr.flipY) {
-                if (sr.flipY) {
-                    BindToLeft();
-                    gun.MuzzlePoint.transform.localPosition = new Vector3(.848f, -.192f);
-                } else {
-                    BindToRight();
-                    gun.MuzzlePoint.transform.localPosition = new Vector3(.848f, .192f);
+            if (lastHandSwitch >= handSwitchCooldown) {
+                sr.flipY = gun.transform.eulerAngles.z > 90 && gun.transform.eulerAngles.z < 270;
+                if (prevFlipY != sr.flipY) {
+                    if (sr.flipY) {
+                        BindToLeft();
+                        gun.MuzzlePoint.transform.localPosition = new Vector3(.848f, -.192f);
+                    } else {
+                        BindToRight();
+                        gun.MuzzlePoint.transform.localPosition = new Vector3(.848f, .192f);
+                    }
+                    lastHandSwitch = 0;
                 }
-                lastHandSwitch = 0;
             }
         }
     }

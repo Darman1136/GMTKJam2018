@@ -58,6 +58,8 @@ EdgeCollider2D:
   m_Points:
   - {x: -0.25, y: 0.25}
   - {x: 0.25, y: -0.25}
+  - {x: -0.25, y: -0.25}
+  - {x: -0.25, y: 0.25}
 --- !u!212 &212082116318589858
 SpriteRenderer:
   m_ObjectHideFlags: 1
