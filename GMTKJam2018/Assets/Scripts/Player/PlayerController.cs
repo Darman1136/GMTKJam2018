@@ -16,6 +16,9 @@ public class PlayerController : MonoBehaviour {
     private float handSwitchCooldown = 1f;
     private float lastHandSwitch = 1f;
 
+    [SerializeField]
+    private GameObject psBlood;
+
     void Awake() {
         rb = GetComponent<Rigidbody2D>();
         psc = GetComponent<PlayerSoundController>();
@@ -116,7 +119,9 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    public void Death() {
+    public void Death(GameObject killer) {
+        psc.Splat();
+        BloodSplatter(killer.transform);
         Reset();
         Camera.main.GetComponent<CameraController>().PlayerDeath();
     }
@@ -125,5 +130,9 @@ public class PlayerController : MonoBehaviour {
         rb.velocity = Vector2.zero;
         rb.gravityScale = 1;
         SetToSpawnPoint();
+    }
+
+    private void BloodSplatter(Transform t) {
+        Instantiate(psBlood, t.position, psBlood.transform.rotation * Quaternion.Euler(-t.rotation.eulerAngles.z, 0, 0));
     }
 }

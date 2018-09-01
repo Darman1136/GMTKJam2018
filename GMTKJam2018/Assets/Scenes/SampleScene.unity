@@ -952,7 +952,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 10
+  far clip plane: 100
   field of view: 60
   orthographic: 1
   orthographic size: 10
@@ -1589,6 +1589,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   handLeft: {fileID: 1101924843}
   handRight: {fileID: 1275259715}
+  psBlood: {fileID: 1190942282904360, guid: 8ba4601ca99c6e142a1a3e37a3bc77ae, type: 2}
 --- !u!212 &752508513
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1621,8 +1622,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -2015117983
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9de038a6a430e56409a7e5d9e4467477, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1706,7 +1707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3716dd33ae067343af9b3f9d3829f22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acShot: {fileID: 8300000, guid: 4f389f582cecf0c4d9b9387742b70e5f, type: 3}
+  acSplat: {fileID: 8300000, guid: 64e197bd0a332bc4dbfd558437f3f29e, type: 3}
 --- !u!1 &800035294
 GameObject:
   m_ObjectHideFlags: 0
@@ -2958,7 +2959,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4448410915032326, guid: 1610e42fa0161544caf79f57dde8f2d2, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -8.861328
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4448410915032326, guid: 1610e42fa0161544caf79f57dde8f2d2, type: 2}
       propertyPath: m_LocalRotation.x

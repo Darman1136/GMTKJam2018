@@ -8,7 +8,7 @@ public class Killable : MonoBehaviour {
         if (collision.gameObject.tag.Equals("Player")) {
             PlayerController pc = collision.gameObject.GetComponent<PlayerController>();
             if (pc) {
-                pc.Death();
+                pc.Death(gameObject);
             }
         }
     }
