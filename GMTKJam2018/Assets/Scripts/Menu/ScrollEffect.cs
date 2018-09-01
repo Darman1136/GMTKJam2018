@@ -13,7 +13,6 @@ public class ScrollEffect : MonoBehaviour {
     private float resetX = -19.98f;
 
     void Update() {
-        Debug.Log(bg1.transform.position);
         bg1.transform.position += speed * Time.deltaTime;
         bg2.transform.position += speed * Time.deltaTime;
 

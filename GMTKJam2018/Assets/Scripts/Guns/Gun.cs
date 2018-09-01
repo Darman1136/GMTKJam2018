@@ -89,7 +89,7 @@ public class Gun : MonoBehaviour {
     }
 
     protected virtual void Awake() {
-        asShot = AddAudioSource(acShot, false, false, 0.3f);
+        asShot = AddAudioSource(acShot, false, false, 0.2f);
     }
 
     protected virtual void Update() {

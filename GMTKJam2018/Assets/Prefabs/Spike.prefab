@@ -21,12 +21,13 @@ GameObject:
   - component: {fileID: 4739359776449990}
   - component: {fileID: 212469056322199448}
   - component: {fileID: 68669933080273504}
+  - component: {fileID: 114326456780799360}
   m_Layer: 0
   m_Name: Spike
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &4739359776449990
 Transform:
@@ -34,13 +35,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1480181252066490}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.14, y: 3.82, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: -9.81, y: 17.22, z: 0.047330648}
+  m_LocalScale: {x: 1.5000019, y: 1.5000019, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!68 &68669933080273504
 EdgeCollider2D:
   m_ObjectHideFlags: 1
@@ -59,6 +60,17 @@ EdgeCollider2D:
   - {x: -0.25, y: -0.15}
   - {x: 0.25, y: 0}
   - {x: -0.25, y: 0.15}
+--- !u!114 &114326456780799360
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1480181252066490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5f19ca7a6e3f014396daa3eff060a54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212469056322199448
 SpriteRenderer:
   m_ObjectHideFlags: 1

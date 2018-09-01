@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour {
     [SerializeField]
     private GameObject handRight;
 
-    private float handSwitchCooldown = 1f;
+    private float handSwitchCooldown = .5f;
     private float lastHandSwitch = 1f;
 
     [SerializeField]
