@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour {
         rb = GetComponent<Rigidbody2D>();
         psc = GetComponent<PlayerSoundController>();
         PickUpGun(FindObjectOfType<M4>());
+
+        SetToSpawnPoint();
     }
 
     void Start() {
@@ -55,7 +57,7 @@ public class PlayerController : MonoBehaviour {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             gun.transform.rotation = Quaternion.LookRotation(Vector3.forward, mousePos - gun.transform.position) * Quaternion.Euler(0f, 0f, 90f); ;
 
-            Debug.Log(gun.transform.rotation.eulerAngles);
+            // Debug.Log(gun.transform.rotation.eulerAngles);
 
             SpriteRenderer sr = gun.GetComponent<SpriteRenderer>();
             bool prevFlipY = sr.flipY;
@@ -103,5 +105,25 @@ public class PlayerController : MonoBehaviour {
     private void BindToLeft() {
         gun.transform.position = handLeft.transform.position;
         gun.transform.parent = handLeft.transform;
+    }
+
+    private void SetToSpawnPoint() {
+        GameObject spawn = GameObject.FindGameObjectWithTag("Spawn");
+        if (spawn) {
+            transform.position = spawn.transform.position;
+        } else {
+            Debug.LogError("No spawn found (Prefabs/Spawn)");
+        }
+    }
+
+    public void Death() {
+        Reset();
+        Camera.main.GetComponent<CameraController>().PlayerDeath();
+    }
+
+    private void Reset() {
+        rb.velocity = Vector2.zero;
+        rb.gravityScale = 1;
+        SetToSpawnPoint();
     }
 }

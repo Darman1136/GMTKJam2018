@@ -42,17 +42,43 @@ public class Gun : MonoBehaviour {
         }
     }
 
+    private float pitchRange = 0f;
+    public float PitchRange {
+        get {
+            return pitchRange;
+        }
+
+        set {
+            pitchRange = value;
+        }
+    }
+
+    private float defaultPitch = 1f;
+    public float DefaultPitch {
+        get {
+            return defaultPitch;
+        }
+
+        set {
+            defaultPitch = value;
+        }
+    }
+
+
+
+
     protected virtual void Awake() {
         asShot = AddAudioSource(acShot, false, false, 0.3f);
     }
 
     protected virtual void Update() {
         timeSinceLastShot += Time.deltaTime;
-        
+
     }
 
     public virtual void Fire() {
         if (CanFire()) {
+            asShot.pitch = defaultPitch + UnityEngine.Random.Range(-pitchRange, pitchRange);
             asShot.Play();
             AddForceToUser();
             timeSinceLastShot = 0f;
