@@ -1677,7 +1677,7 @@ Prefab:
     - target: {fileID: 114391194440411510, guid: 804fd9fdc3dad1543bfd5ad3ce3faf57,
         type: 2}
       propertyPath: nextlevel
-      value: EndMenu
+      value: Level7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 804fd9fdc3dad1543bfd5ad3ce3faf57, type: 2}
