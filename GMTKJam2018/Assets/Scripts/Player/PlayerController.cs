@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
     private Rigidbody2D rb;
@@ -20,11 +21,17 @@ public class PlayerController : MonoBehaviour {
 
     [SerializeField]
     private GameObject psBlood;
+    [SerializeField]
+    private Text deathText;
+    private bool alive;
 
     private RocketLauncher rl;
     private M4 m4;
 
     private int currentHand = 0;
+
+    private float lastDeathTime = 999f;
+    private float lastDeathDelay = 0.1f;
 
     void Awake() {
         rl = FindObjectOfType<RocketLauncher>();
@@ -38,7 +45,8 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Start() {
-
+        UpdateUI();
+        alive = true;
     }
 
     void Update() {
@@ -63,6 +71,7 @@ public class PlayerController : MonoBehaviour {
 
         animator.SetFloat("speed", rb.velocity.x);
         lastHandSwitch += Time.deltaTime;
+        lastDeathTime += Time.deltaTime;
     }
 
     private void UpdateRBGravity(bool m1Down) {
@@ -147,16 +156,27 @@ public class PlayerController : MonoBehaviour {
     }
 
     public void Death(GameObject killer) {
-        psc.Splat();
-        BloodSplatter(killer.transform);
-        Reset();
-        Camera.main.GetComponent<CameraController>().PlayerDeath();
+        if (alive && lastDeathTime >= lastDeathDelay) {
+            alive = false;
+            lastDeathTime = 0;
+            PlayerData.Deaths++;
+            psc.Splat();
+            BloodSplatter(killer.transform);
+            Reset();
+            Camera.main.GetComponent<CameraController>().PlayerDeath();
+            UpdateUI();
+        }
+    }
+
+    private void UpdateUI() {
+        deathText.text = "Deaths: " + PlayerData.Deaths;
     }
 
     private void Reset() {
         rb.velocity = Vector2.zero;
         rb.gravityScale = 1;
         SetToSpawnPoint();
+        alive = true;
     }
 
     private void BloodSplatter(Transform t) {

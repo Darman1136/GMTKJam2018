@@ -101,7 +101,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1812871919337866}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.2, y: 2.1, z: -0.047330648}
+  m_LocalPosition: {x: -13.625111, y: -0.21587181, z: -0.047330648}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4668034011985412}
@@ -260,6 +260,7 @@ MonoBehaviour:
   handLeft: {fileID: 1612330003699674}
   handRight: {fileID: 1390787734284080}
   psBlood: {fileID: 1190942282904360, guid: 8ba4601ca99c6e142a1a3e37a3bc77ae, type: 2}
+  deathText: {fileID: 0}
 --- !u!114 &114057308550344080
 MonoBehaviour:
   m_ObjectHideFlags: 1
